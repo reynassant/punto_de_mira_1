@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import random
 
-RATE_OF_FIRE = 6  # Shots per second
+RATE_OF_FIRE = 40  # Shots per second
 AREA_OF_BULLET = 1/40  # Relative to drawing window
 # determines bullet size. Used for redrawing sight
 BULLET_MAX_ABS = {"x": math.inf, "y": math.inf}
@@ -45,7 +45,7 @@ def dibuja_punto_de_mira(color='k'):
 
 
 def aleatoriza_tiro(coordenada):
-    hipotenusa = math.sqrt((coordenada[0] ** 2) + (coordenada[1] ** 2))
+    hipotenusa = math.sqrt((coordenada[0] ** 2) + (coordenada[1] ** 2)) * RANDOM_FACTOR
     aleat_x = random.uniform(-1, 1)
     aleat_y = random.uniform(-1, 1)
     new_x = coordenada[0] + (aleat_x * hipotenusa)
