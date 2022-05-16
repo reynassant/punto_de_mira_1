@@ -45,7 +45,8 @@ def dibuja_punto_de_mira(color='k'):
 
 
 def aleatoriza_tiro(coordenada):
-    hipotenusa = math.sqrt((coordenada[0] ** 2) + (coordenada[1] ** 2)) * RANDOM_FACTOR
+    hipotenusa = math.sqrt(
+        (coordenada[0] ** 2) + (coordenada[1] ** 2)) * RANDOM_FACTOR
     aleat_x = random.uniform(-1, 1)
     aleat_y = random.uniform(-1, 1)
     new_x = coordenada[0] + (aleat_x * hipotenusa)
@@ -56,7 +57,7 @@ def aleatoriza_tiro(coordenada):
     return new_coordenada
 
 
-def dibuja_balas(lista_de_coordenadas, color='b'):
+def dibuja_balas(lista_de_coordenadas, lista_de_coordenadas_aleatorizadas):
     def sobrescribe_punto_de_mira(coordenada):
         return abs(coordenada[0]) <= BULLET_MAX_ABS["x"] or abs(coordenada[1]) <= BULLET_MAX_ABS["y"]
 
@@ -65,10 +66,14 @@ def dibuja_balas(lista_de_coordenadas, color='b'):
     set_plot(lista_de_coordenadas)
     dibuja_punto_de_mira()
 
-    for coordenada in lista_de_coordenadas:
-        plt.plot(coordenada[0], coordenada[1], color=color, marker='o')
+    for coordenada in lista_de_coordenadas_aleatorizadas:
+        plt.plot(coordenada[0], coordenada[1], color='r', marker='o')
         if(sobrescribe_punto_de_mira(coordenada)):
             dibuja_punto_de_mira('r')
+        plt.pause(PAUSE_TIME)
+
+    for coordenada in lista_de_coordenadas:
+        plt.plot(coordenada[0], coordenada[1], color='b', marker='o')
         plt.pause(PAUSE_TIME)
 
     plt.show()
@@ -84,4 +89,4 @@ if __name__ == '__main__':
     for coordenada in lista_de_coordenadas:
         lista_de_coordenadas_aleatorizadas.append(aleatoriza_tiro(coordenada))
 
-    dibuja_balas(lista_de_coordenadas_aleatorizadas)
+    dibuja_balas(lista_de_coordenadas, lista_de_coordenadas_aleatorizadas)
